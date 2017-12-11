@@ -3,9 +3,9 @@
 set -e
 
 #disabled since we are deploying a snapshot version
-#cd ../../bin
-#. ./setVersions.sh
-#cd -
+# cd ../../bin
+# source ./setVersions.sh
+# cd -
 
 export INGESTION_MANAGER_VERSION=1.0.0-SNAPSHOT
 
