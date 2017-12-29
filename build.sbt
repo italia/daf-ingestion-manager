@@ -25,7 +25,7 @@ resolvers ++= Seq(
   "zalando-bintray" at "https://dl.bintray.com/zalando/maven",
   "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases",
   "jeffmay" at "https://dl.bintray.com/jeffmay/maƒven",
-  "daf repo" at "http://nexus.default.svc.cluster.local:8081/repository/maven-public/",
+  "daf repo" at "http://nexus.daf.teamdigitale.it/repository/maven-public/",
   Resolver.url("sbt-plugins", url("http://dl.bintray.com/zalando/sbt-plugins"))(Resolver.ivyStylePatterns)
 )
 
@@ -120,10 +120,10 @@ dockerCommands := dockerCommands.value.flatMap {
 dockerEntrypoint := Seq(s"bin/${name.value}", "-Dconfig.file=conf/production.conf")
 //9000 -> rest api, 7000 -> jolokia port
 dockerExposedPorts := Seq(9000)
-dockerRepository := Option("10.98.74.120:5000")
+dockerRepository := Option("registry.daf.teamdigitale.it")
 
 publishTo in ThisBuild := {
-  val nexus = "http://nexus.default.svc.cluster.local:8081/repository/"
+  val nexus = "http://nexus.daf.teamdigitale.it/repository/"
   if (isSnapshot.value)
     Some("snapshots" at nexus + "maven-snapshots/")
   else
