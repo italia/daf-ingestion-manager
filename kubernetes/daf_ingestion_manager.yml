@@ -50,7 +50,7 @@ spec:
           - "idm"
       containers:
       - name: ingestion-manager
-        image: registry.daf.teamdigitale.it/daf-ingestion-manager:1.0.0-SNAPSHOT
+        image: registry.daf.teamdigitale.it/daf-ingestion-manager:${INGESTION_MANAGER_VERSION}
         imagePullPolicy: Always
         env:
         - name: JAVA_OPTS
