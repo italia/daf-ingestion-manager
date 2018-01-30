@@ -28,49 +28,29 @@ spec:
         app: ingestion-manager
     spec:
       hostAliases:
-      - ip: "192.168.0.23"
+      - ip: "192.168.1.91"
         hostnames:
-          - "master.platform.daf.gov.it"
+          - "master.test.cloudera.daf.teamdigitale.it"
           - "master"
-      - ip: "192.168.0.22"
+      - ip: "192.168.1.92"
         hostnames:
-          - "slave1.platform.daf.gov.it"
+          - "slave1.test.cloudera.daf.teamdigitale.it"
           - "slave1"
-      - ip: "192.168.0.24"
+      - ip: "192.168.1.112"
         hostnames:
-          - "slave2.platform.daf.gov.it"
+          - "slave2.test.cloudera.daf.teamdigitale.it"
           - "slave2"
-      - ip: "192.168.0.36"
+      - ip: "192.168.1.93"
         hostnames:
-          - "slave3.platform.daf.gov.it"
-          - "slave3"
-      - ip: "192.168.0.26"
-        hostnames:
-          - "slave4.platform.daf.gov.it"
-          - "slave4"
-      - ip: "192.168.0.26"
-        hostnames:
-          - "slave4.platform.daf.gov.it"
-          - "slave4"
-      - ip: "192.168.0.20"
-        hostnames:
-          - "edge1.platform.daf.gov.it"
+          - "edge1.test.cloudera.daf.teamdigitale.it"
           - "edge1"
-      - ip: "192.168.0.21"
+      - ip: "192.168.1.85"
         hostnames:
-          - "edge2.platform.daf.gov.it"
-          - "edge2"
-      - ip: "192.168.0.27"
-        hostnames:
-          - "edge3.platform.daf.gov.it"
-          - "edge3"
-      - ip: "192.168.0.29"
-        hostnames:
-          - "idm.daf.gov.it"
+          - "idm.test.daf.teamdigitale.it"
           - "idm"
       containers:
       - name: ingestion-manager
-        image: 10.98.74.120:5000/daf-ingestion-manager:1.0.0-SNAPSHOT
+        image: registry.daf.teamdigitale.it/daf-ingestion-manager:1.0.0-SNAPSHOT
         imagePullPolicy: Always
         env:
         - name: JAVA_OPTS
@@ -80,9 +60,6 @@ spec:
           containerPort: 9000
         - name: metrics
           containerPort: 7000
-        # securityContext:
-        #   privileged: true
-        #   runAsUser: 0
         volumeMounts:
         - name: glusterfsvol
           mountPath: /opt/docker/conf/production.conf
@@ -94,11 +71,10 @@ spec:
           readOnly: true
         - name: krb5conf
           mountPath: /etc/krb5.conf
-        - name: hadoopconf
+        - name: glusterfsvol
           mountPath: /etc/hadoop/conf
+          subPath: etc/hadoop/conf
           readOnly: true
-      imagePullSecrets:
-        - name: regsecret
       volumes:
       - name: glusterfsvol
         persistentVolumeClaim:
@@ -106,6 +82,3 @@ spec:
       - name: krb5conf
         hostPath:
           path: /etc/krb5.conf
-      - name: hadoopconf
-        hostPath:
-          path: /etc/hadoop/conf
